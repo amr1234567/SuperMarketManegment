@@ -66,7 +66,7 @@ namespace Plugin.InMemory
         {
             var category = _categories.FirstOrDefault(c => c.Name.Equals(name, StringComparison.OrdinalIgnoreCase));
            
-            return category;
+            return category ?? new Category();
         }
     }
 }

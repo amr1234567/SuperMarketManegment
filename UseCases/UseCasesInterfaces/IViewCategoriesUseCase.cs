@@ -1,6 +1,6 @@
 ﻿using Core;
 
-namespace UseCases
+namespace UseCases.UseCasesInterfaces
 {
     public interface IViewCategoriesUseCase
     {

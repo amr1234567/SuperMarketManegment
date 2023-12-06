@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UseCases.DataSourcePluginsInterfaces;
+using UseCases.UseCasesInterfaces;
 
 namespace UseCases.CategoriesUseCases
 {

@@ -1,0 +1,75 @@
+﻿@page "/products"
+@using UseCases.UseCasesInterfaces
+@inject IViewProductsUseCase _ProductsUseCases
+@inject IGetCategoryByIdUseCase _Category
+@inject IDeleteProductUseCase _DeleteProduct
+@inject NavigationManager navigation
+
+<h3>Products Management</h3>
+
+@if (products != null)
+{
+    <table class="table row-gap-4">
+        <thead>
+            <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Price</th>
+                <th scope="col">Category Name</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var product in products)
+            {
+                <tr>
+                    <td>@product.Name</td>
+                    <td>@product.Price</td>
+                    <td>@_Category.Execute(product.CategoryId).Name</td>
+                    <td>@product.Quantity</td>
+                    <td>
+                        <button type="button" @onclick="()=> OnEditClick(product)" class="btn btn-success me-4">Edit</button>
+                        <button type="button" @onclick="()=> OnDeleteClick(product.Id)" class="btn btn-danger me-4">Delete</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="2">
+                    <button type="button" @onclick="AddCategory" class="btn btn-primary">Add Product</button>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+}
+
+
+
+@code {
+    private IEnumerable<Product> products;
+
+    private void LoadCategories()
+    {
+        products = _ProductsUseCases.Execute()?.ToList() ?? new List<Product>();
+    }
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        LoadCategories();
+    }
+    private void AddCategory()
+    {
+        navigation.NavigateTo("/AddProduct");
+    }
+    private void OnEditClick(Product product)
+    {
+        navigation.NavigateTo($"/EditProduct/{product.Id}");
+
+    }
+    private void OnDeleteClick(int id)
+    {
+        _DeleteProduct.Execute(id);
+        LoadCategories();
+    }
+}

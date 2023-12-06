@@ -1,0 +1,60 @@
+﻿@page "/AddProduct"
+@using UseCases.UseCasesInterfaces
+
+@inject IAddProductUseCase _ProductUseCase
+@inject IViewCategoriesUseCase categories
+@inject NavigationManager navManager
+
+<h3>Add Product</h3>
+
+<EditForm Model="product" class="form-inline gap-4" OnValidSubmit="onValidSubmit">
+    <DataAnnotationsValidator></DataAnnotationsValidator>
+    <ValidationSummary></ValidationSummary>
+    <div class="form-group mb-3">
+        <label for="name">Name</label>
+        <InputText @bind-Value="product.Name" id="name" class="form-control"></InputText>
+    </div>
+    <div class="form-group mb-3">
+        <label for="name">Quantity</label>
+        <InputNumber @bind-Value="product.Quantity" id="Quantity" class="form-control"></InputNumber>
+    </div>
+    <div class="form-group mb-3">
+        <label for="Category">Category</label>
+        <select @bind="product.CategoryId" id="Category" class="form-select">
+            <option value="0"></option>
+            @foreach (var cat in _categories)
+            {
+                <option value="@cat.Id">@cat.Name</option>
+            }
+        </select>
+    </div>
+    <div class="form-group mb-3">
+        <label for="Price">Price</label>
+        <InputNumber @bind-Value="product.Price" @bind-Value:format="F2" id="Price" class="form-control"></InputNumber>
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary me-2"> Save</button>
+        <button @onclick="onCancel" type="button" class="btn btn-dark"> Cancel</button>
+    </div>
+</EditForm>
+
+@code {
+    private Product product;
+    private IEnumerable<Category> _categories;
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        product = new Product();
+        _categories = categories.Execute().ToList();
+    }
+
+    private void onValidSubmit()
+    {
+        _ProductUseCase.Execute(product);
+        navManager.NavigateTo("products");
+    }
+    private void onCancel()
+    {
+        navManager.NavigateTo("products");
+    }
+}

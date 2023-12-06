@@ -1,7 +1,8 @@
 ﻿@page "/EditCategory/{CategoryId}"
+@using UseCases.UseCasesInterfaces
 
-@inject UseCases.IEditCategoryUseCase _EditCategoryUseCase
-@inject UseCases.IGetCategoryByIdUseCase _GetCategoryUseCase
+@inject IEditCategoryUseCase _EditCategoryUseCase
+@inject IGetCategoryByIdUseCase _GetCategoryUseCase
 
 @inject NavigationManager navManager
 <h3>Add Category</h3>

@@ -4,6 +4,7 @@ using Plugin.InMemory;
 using UseCases;
 using UseCases.CategoriesUseCases;
 using UseCases.DataSourcePluginsInterfaces;
+using UseCases.UseCasesInterfaces;
 using WebApp.Data;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -15,12 +16,21 @@ builder.Services.AddSingleton<WeatherForecastService>();
 
 // DI
 builder.Services.AddScoped<ICategoryRepositry,CategoryInMemoryRepositry>();
+builder.Services.AddScoped<IProductRepositry, ProductInMemoryRepositry>();
+
 
 builder.Services.AddScoped<IViewCategoriesUseCase, ViewCategoriesUseCase>();
 builder.Services.AddScoped<IAddCategoryUseCase, AddCategoryUseCase>();
 builder.Services.AddScoped<IEditCategoryUseCase, EditCategoryUseCase>();
 builder.Services.AddScoped<IDeleteCategoryUseCase, DeleteCategoryUseCase>();
 builder.Services.AddScoped<IGetCategoryByIdUseCase, GetCategoryByIdUseCase>();
+
+builder.Services.AddScoped<IViewProductsUseCase, ViewProductsUseCase>();
+builder.Services.AddScoped<IAddProductUseCase, AddProductUseCase>();
+builder.Services.AddScoped<IEditProductUseCase, EditProductUseCase>();
+builder.Services.AddScoped<IGetProductByIdUseCase, GetProductByIdUseCase>();
+builder.Services.AddScoped<IDeleteProductUseCase, DeleteProductUseCase>();
+
 
 
 var app = builder.Build();
