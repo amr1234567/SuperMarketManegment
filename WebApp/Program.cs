@@ -1,9 +1,9 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using Plugin.InMemory;
-using UseCases;
 using UseCases.CategoriesUseCases;
 using UseCases.DataSourcePluginsInterfaces;
+using UseCases.ProductsUseCases;
 using UseCases.UseCasesInterfaces;
 using WebApp.Data;
 
@@ -30,6 +30,7 @@ builder.Services.AddScoped<IAddProductUseCase, AddProductUseCase>();
 builder.Services.AddScoped<IEditProductUseCase, EditProductUseCase>();
 builder.Services.AddScoped<IGetProductByIdUseCase, GetProductByIdUseCase>();
 builder.Services.AddScoped<IDeleteProductUseCase, DeleteProductUseCase>();
+builder.Services.AddScoped<IGetProductsByCategoryIdUseCase, GetProductsByCategoryIdUseCase>();
 
 
 

@@ -1,0 +1,59 @@
+﻿@inject UseCases.UseCasesInterfaces.IViewCategoriesUseCase Categories
+@inject UseCases.UseCasesInterfaces.IGetProductsByCategoryIdUseCase ProductsInCategory
+
+<select @bind="CategoryId"  class="form-select">
+    <option value="0"></option>
+    @foreach (var cat in _categories)
+    {
+        <option value="@cat.Id">@cat.Name</option>
+    }
+</select>
+<br/>
+@if(products != null)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Quantity</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var product in products)
+            {
+                <tr>
+                    <td>@product.Name</td>
+                    <td>@product.Name</td>
+                    <td>@product.Price</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+
+@code {
+    private IEnumerable<Product> products;
+    private IEnumerable<Category> _categories;
+    private int categoryId;
+    private int CategoryId
+    {
+        set
+        {
+            categoryId = value;
+            products = ProductsInCategory.Execute(value).ToList();
+            StateHasChanged();
+        }
+        get
+        {
+            return categoryId;
+        }
+    }
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        _categories = Categories.Execute().ToList();
+    }
+}

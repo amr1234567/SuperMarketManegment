@@ -5,11 +5,11 @@ VisualStudioVersion = 17.9.34310.174
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApp", "WebApp\WebApp.csproj", "{56266540-8B7F-4B61-8D59-B76898D9DABF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "Core\Core.csproj", "{B0F79366-E673-4745-B759-8D1DBA1CA95A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core", "Core\Core.csproj", "{B0F79366-E673-4745-B759-8D1DBA1CA95A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UseCases", "UseCases\UseCases.csproj", "{D6358856-FA4A-4751-8481-BC396FE41863}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UseCases", "UseCases\UseCases.csproj", "{D6358856-FA4A-4751-8481-BC396FE41863}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Plugin.InMemory", "Plugin.InMemory\Plugin.InMemory.csproj", "{309CA505-34C6-416D-844E-DF5125FFF621}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Plugin.InMemory", "Plugin.InMemory\Plugin.InMemory.csproj", "{309CA505-34C6-416D-844E-DF5125FFF621}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

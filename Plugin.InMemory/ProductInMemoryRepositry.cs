@@ -58,6 +58,11 @@ namespace Plugin.InMemory
             return product ?? new Product();
         }
 
+        public IEnumerable<Product> GetProductsByCategoryId(int categoryId)
+        {
+            return _products.Where(p=>p.CategoryId == categoryId);
+        }
+
         public void RemoveProduct(int id)
         {
             var product = GetProductById(id);

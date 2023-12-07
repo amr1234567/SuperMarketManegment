@@ -7,20 +7,20 @@ using System.Threading.Tasks;
 using UseCases.DataSourcePluginsInterfaces;
 using UseCases.UseCasesInterfaces;
 
-namespace UseCases
+namespace UseCases.ProductsUseCases
 {
-    public class GetProductByIdUseCase : IGetProductByIdUseCase
+    public class EditProductUseCase : IEditProductUseCase
     {
         private readonly IProductRepositry productRepositry;
 
-        public GetProductByIdUseCase(IProductRepositry productRepositry)
+        public EditProductUseCase(IProductRepositry productRepositry)
         {
             this.productRepositry = productRepositry;
         }
 
-        public Product Execute(int id)
+        public void Execute(Product product)
         {
-            return productRepositry.GetProductById(id);
+            productRepositry.AddProduct(product);
         }
     }
 }

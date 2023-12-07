@@ -14,5 +14,6 @@ namespace UseCases.DataSourcePluginsInterfaces
         Product GetProductByName(string name);
         void AddProduct (Product product);
         void RemoveProduct (int id);
+        IEnumerable<Product> GetProductsByCategoryId(int categoryId);
     }
 }
