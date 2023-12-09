@@ -1,11 +1,60 @@
 ﻿@page "/Cashier"
-
-<h3>Cashier's' Console</h3>
+<div class="row">
+    <div class="col-7">
+        <h3>Cashier's' Console</h3>
+    </div>
+    <div class="col-2">
+        <label for="CashierName">Cashier Name</label>
+    </div>
+    <div class="col-3">
+        <input id="CashierName" type="text" @bind-value="CashierName" class="ms-2 form-control"/>
+    </div>
+</div>
 <br />
-<WebApp.Controls.SelectProductForSellingControl>
 
-</WebApp.Controls.SelectProductForSellingControl>
+<div class="row">
+    <div class="col-3">
+        <SelectProductForSellingControl 
+            onProductSelect="selectProduct">
+        </SelectProductForSellingControl>
+
+        <SellProductComponent 
+            CashierName="@CashierName"
+            OnProductSold="productSold"
+            SelectedProduct="selectedProduct">
+        </SellProductComponent>
+    </div>
+    <div class="col-9">
+        <TodayTransactionsComponent
+            @ref="TodayTransactions">
+        </TodayTransactionsComponent>
+    </div>
+
+</div>
+
 
 @code {
-
+    private Product selectedProduct;
+    private string CashierName = string.Empty;
+    private TodayTransactionsComponent TodayTransactions;
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+    }
+    protected override void OnAfterRender(bool firstRender)
+    {
+        base.OnAfterRender(firstRender);
+        if (firstRender)
+        {
+            TodayTransactions.onLoadTransactions(CashierName);
+        }
+    }
+    private void selectProduct(Product product)
+    {
+        selectedProduct = product;
+    }
+    private void productSold(Product product)
+    {
+        TodayTransactions.onLoadTransactions(CashierName);
+    }
 }

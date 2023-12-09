@@ -41,6 +41,18 @@ namespace Plugin.InMemory
             _products.Add(product);
         }
 
+        public void EditProduct(Product product)
+        {
+            var prod = _products.FirstOrDefault(p => p.Id == product.Id);
+            if (prod != null)
+            {
+                prod.Price = product.Price;
+                prod.Name = product.Name;
+                prod.CategoryId = product.CategoryId;
+                prod.Quantity = product.Quantity;
+            }
+        }
+
         public IEnumerable<Product> GetAllProducts()
         {
             return _products;

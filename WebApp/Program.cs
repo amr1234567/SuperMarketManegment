@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using Plugin.InMemory;
+using UseCases;
 using UseCases.CategoriesUseCases;
 using UseCases.DataSourcePluginsInterfaces;
 using UseCases.ProductsUseCases;
@@ -17,6 +18,7 @@ builder.Services.AddSingleton<WeatherForecastService>();
 // DI
 builder.Services.AddScoped<ICategoryRepositry,CategoryInMemoryRepositry>();
 builder.Services.AddScoped<IProductRepositry, ProductInMemoryRepositry>();
+builder.Services.AddScoped<ITransactionsRepositry, TransactionsInMemoryRepositry>();
 
 
 builder.Services.AddScoped<IViewCategoriesUseCase, ViewCategoriesUseCase>();
@@ -30,8 +32,11 @@ builder.Services.AddScoped<IAddProductUseCase, AddProductUseCase>();
 builder.Services.AddScoped<IEditProductUseCase, EditProductUseCase>();
 builder.Services.AddScoped<IGetProductByIdUseCase, GetProductByIdUseCase>();
 builder.Services.AddScoped<IDeleteProductUseCase, DeleteProductUseCase>();
+builder.Services.AddScoped<ISellProductUseCase, SellProductUseCase>();
 builder.Services.AddScoped<IGetProductsByCategoryIdUseCase, GetProductsByCategoryIdUseCase>();
 
+builder.Services.AddScoped<IRecordTransactionUseCase, RecordTransactionUseCase>();
+builder.Services.AddScoped<IGetTodayTransactiosUseCase, GetTodayTransactiosUseCase>();
 
 
 var app = builder.Build();

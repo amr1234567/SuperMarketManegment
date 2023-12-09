@@ -1,0 +1,23 @@
+﻿@page "/TransactionsReport"
+
+<div class="row">
+    <div class="col-4 form-group">
+        <label for="cashier">Cashier Name</label>
+        <input type="text" id="cashier" name="cashier" @bind-value="cashierName"/>
+    </div>
+    <div class="col-4 form-group">
+        <label for="startDate">Start Date</label>
+        <input type="date" id="startDate" name="startDate" @bind-value="startDate" />
+    </div>
+    <div class="col-4 form-group">
+        <label for="endDate">End Date</label>
+        <input type="text" id="endDate" name="endDate" @bind-value="endDate" />
+    </div>
+    <button type="button" class="btn btn-primary">Search</button>
+</div>
+
+@code {
+    private string cashierName;
+    private DateTime startDate;
+    private DateTime endDate;
+}

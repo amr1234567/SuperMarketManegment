@@ -1,0 +1,42 @@
+﻿@inject IGetTodayTransactiosUseCase TodayTransactions
+@if(transactions != null)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Casheir Name</th>
+                <th>Product Name</th>
+                <th>Date Sell</th>
+                <th>Quantity before</th>
+                <th>Quantity Sold</th>
+                <th>Quantity After</th>
+                <th>Sold Amt</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(var trans in transactions)
+            {
+                <tr>
+                    <td>@trans.CashierName</td>
+                    <td>@trans.ProductName</td>
+                    <td>@trans.date.ToString("MM-dd hh:mm")</td>
+                    <td>@(trans.BeforeQuantity + trans.SoldQuantity)</td>
+                    <td>@trans.SoldQuantity</td>
+                    <td>@trans.BeforeQuantity</td>
+                    <td>@(string.Format("{0:c}", trans.SoldQuantity * trans.price))</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private IEnumerable<Core.Transaction> transactions;
+    
+    
+    public void onLoadTransactions(string CasheirName)
+    {
+        transactions = TodayTransactions.Execute(CasheirName);
+        StateHasChanged();
+    }
+}

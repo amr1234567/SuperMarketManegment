@@ -20,7 +20,7 @@ namespace UseCases.ProductsUseCases
 
         public void Execute(Product product)
         {
-            productRepositry.AddProduct(product);
+            productRepositry.EditProduct(product);
         }
     }
 }

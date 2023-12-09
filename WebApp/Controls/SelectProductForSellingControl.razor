@@ -1,5 +1,5 @@
-﻿@inject UseCases.UseCasesInterfaces.IViewCategoriesUseCase Categories
-@inject UseCases.UseCasesInterfaces.IGetProductsByCategoryIdUseCase ProductsInCategory
+﻿@inject IViewCategoriesUseCase Categories
+@inject IGetProductsByCategoryIdUseCase ProductsInCategory
 
 <select @bind="CategoryId"  class="form-select">
     <option value="0"></option>
@@ -22,10 +22,18 @@
         <tbody>
             @foreach (var product in products)
             {
-                <tr>
-                    <td>@product.Name</td>
+                @if (product.Id == selectedProductId)
+                {
+                    color = "background-color:antiquewhite";
+                }
+                else
+                {
+                    color = "";
+                }
+                <tr @onclick="()=> OnSelect(product)" style="@(color);cursor:pointer;">
                     <td>@product.Name</td>
                     <td>@product.Price</td>
+                    <td>@product.Quantity</td>
                 </tr>
             }
         </tbody>
@@ -34,6 +42,12 @@
 
 
 @code {
+    [Parameter]
+    public EventCallback<Product> onProductSelect { get; set; }
+
+    private int selectedProductId { get; set; } = 0;
+    private string  color;
+
     private IEnumerable<Product> products;
     private IEnumerable<Category> _categories;
     private int categoryId;
@@ -43,6 +57,7 @@
         {
             categoryId = value;
             products = ProductsInCategory.Execute(value).ToList();
+            OnSelect(null);
             StateHasChanged();
         }
         get
@@ -55,5 +70,12 @@
     {
         base.OnInitialized();
         _categories = Categories.Execute().ToList();
+    }
+
+    private void OnSelect(Product product)
+    {
+        onProductSelect.InvokeAsync(product);
+        if (product != null) selectedProductId = product.Id;
+        else selectedProductId = 0;
     }
 }
