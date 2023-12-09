@@ -21,6 +21,8 @@ namespace Plugin.DataBase.Sql
         {
             if (category != null)
                 market.Categories.Add(category);
+            market.SaveChanges();
+
         }
 
         public void DeleteCategory(int id)
@@ -28,6 +30,8 @@ namespace Plugin.DataBase.Sql
             var cat = GetCategoryById(id);
             if (cat != null)
                 market.Categories.Remove(cat);
+            market.SaveChanges();
+
         }
 
         public void EditCategory(Category category)
@@ -37,6 +41,8 @@ namespace Plugin.DataBase.Sql
             {
                 cat.Description = category.Description;
                 cat.Name = category.Name;
+                market.SaveChanges();
+
             }
         }
 

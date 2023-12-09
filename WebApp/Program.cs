@@ -9,6 +9,7 @@ using UseCases.UseCasesInterfaces;
 using WebApp.Data;
 using Microsoft.EntityFrameworkCore;
 using Plugin.DataBase.Sql;
+using Microsoft.AspNetCore.Identity;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -23,10 +24,21 @@ builder.Services.AddDbContext<MarketContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("MarketDb"));
 });
 
+builder.Services.AddDbContext<AccountContext>(options =>
+{
+    options.UseSqlServer(builder.Configuration.GetConnectionString("AccoutContextConnection"));
+});
+builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+    .AddEntityFrameworkStores<AccountContext>();
+
 // DI
-builder.Services.AddScoped<ICategoryRepositry,CategoryInMemoryRepositry>();
-builder.Services.AddScoped<IProductRepositry, ProductInMemoryRepositry>();
-builder.Services.AddScoped<ITransactionsRepositry, TransactionsInMemoryRepositry>();
+//builder.Services.AddScoped<ICategoryRepositry,CategoryInMemoryRepositry>();
+//builder.Services.AddScoped<IProductRepositry, ProductInMemoryRepositry>();
+//builder.Services.AddScoped<ITransactionsRepositry, TransactionsInMemoryRepositry>();
+
+builder.Services.AddScoped<ICategoryRepositry, CategoryRepositry>();
+builder.Services.AddScoped<IProductRepositry, ProductRepositry>();
+builder.Services.AddScoped<ITransactionsRepositry, TransactionsRepositry>();
 
 
 builder.Services.AddScoped<IViewCategoriesUseCase, ViewCategoriesUseCase>();

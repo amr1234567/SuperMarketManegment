@@ -60,7 +60,7 @@
                     <td>Total :</td>
                     <td>
                         <b>
-                            @(string.Format("{0:c}", transactions.Sum(t => t.price)))
+                            @(string.Format("{0:c}", transactions.Sum(t => t.price * t.SoldQuantity)))
                         </b>
                     </td>
                 </tr>

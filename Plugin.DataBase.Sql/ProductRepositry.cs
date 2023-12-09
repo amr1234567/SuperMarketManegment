@@ -21,6 +21,8 @@ namespace Plugin.DataBase.Sql
         {
             if (product != null)
                 market.Products.Add(product);
+            market.SaveChanges();
+
         }
 
         public void EditProduct(Product product)
@@ -32,6 +34,7 @@ namespace Plugin.DataBase.Sql
                 prod.Name = product.Name;
                 prod.Quantity = product.Quantity;
                 prod.CategoryId = product.CategoryId;
+                market.SaveChanges();
             }
         }
 
@@ -69,6 +72,8 @@ namespace Plugin.DataBase.Sql
             var prod = GetProductById(id);
             if (prod != null)
                 market.Products.Remove(prod);
+            market.SaveChanges();
+
         }
     }
 }

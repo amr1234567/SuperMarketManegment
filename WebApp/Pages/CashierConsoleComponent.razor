@@ -7,7 +7,7 @@
         <label for="CashierName">Cashier Name</label>
     </div>
     <div class="col-3">
-        <input id="CashierName" type="text" @bind-value="CashierName" class="ms-2 form-control"/>
+        <input id="CashierName" type="text" @onblur="productSold" @bind-value="CashierName" class="ms-2 form-control" />
     </div>
 </div>
 <br />
@@ -53,7 +53,7 @@
     {
         selectedProduct = product;
     }
-    private void productSold(Product product)
+    private void productSold()
     {
         TodayTransactions.onLoadTransactions(CashierName);
     }

@@ -74,9 +74,9 @@
             else
             {
                     errorMessage = string.Empty;
-                    OnProductSold.InvokeAsync(productToSell);
                     SellProduct.Execute(productToSell.Id, productToSell.Quantity);
                     RecordTransaction.Execute(CashierName, productToSell.Id, SelectedProduct.Quantity ,productToSell.Quantity);
+                    OnProductSold.InvokeAsync(productToSell);
             }
         }
         else errorMessage = $"{productToSell.Name} doesn't have enough Quantity. please choose less than {SelectedProduct.Quantity}.";
