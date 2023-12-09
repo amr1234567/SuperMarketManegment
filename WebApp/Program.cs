@@ -7,6 +7,9 @@ using UseCases.DataSourcePluginsInterfaces;
 using UseCases.ProductsUseCases;
 using UseCases.UseCasesInterfaces;
 using WebApp.Data;
+using Microsoft.EntityFrameworkCore;
+using Plugin.DataBase.Sql;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +17,11 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddSingleton<WeatherForecastService>();
+
+builder.Services.AddDbContext<MarketContext>(options =>
+{
+    options.UseSqlServer(builder.Configuration.GetConnectionString("MarketDb"));
+});
 
 // DI
 builder.Services.AddScoped<ICategoryRepositry,CategoryInMemoryRepositry>();
@@ -37,6 +45,7 @@ builder.Services.AddScoped<IGetProductsByCategoryIdUseCase, GetProductsByCategor
 
 builder.Services.AddScoped<IRecordTransactionUseCase, RecordTransactionUseCase>();
 builder.Services.AddScoped<IGetTodayTransactiosUseCase, GetTodayTransactiosUseCase>();
+builder.Services.AddScoped<ISearchTransactionsUseCase, SearchTransactionsUseCase>();
 
 
 var app = builder.Build();

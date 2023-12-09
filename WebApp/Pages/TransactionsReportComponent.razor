@@ -1,23 +1,92 @@
 ﻿@page "/TransactionsReport"
 
-<div class="row">
-    <div class="col-4 form-group">
-        <label for="cashier">Cashier Name</label>
-        <input type="text" id="cashier" name="cashier" @bind-value="cashierName"/>
+@inject ISearchTransactionsUseCase SearchTransactionsUseCase
+@inject IJSRuntime JSRutime
+<div id="printArea">
+    <div class="row">
+        <div class="col-4 form-group">
+            <label for="cashier">Cashier Name</label>
+            <input type="text" id="cashier" name="cashier" @bind-value="cashierName"/>
+        </div>
+        <div class="col-3 form-group">
+            <label for="startDate">Start Date</label>
+            <input type="date" id="startDate" name="startDate" @bind-value="startDate" />
+        </div>
+        <div class="col-3 form-group">
+            <label for="endDate">End Date</label>
+            <input type="text" id="endDate" name="endDate" @bind-value="endDate" />
+        </div>
+        <div class="col-1 form-group buttons-print">
+            <button type="button" @onclick="LoadTransactions" class="btn btn-primary">Search</button>
+        </div>
+        <div class="col-1 form-group buttons-print">
+            <button type="button" @onclick="PrintReport" class="btn btn-success">Print</button>
+        </div>
     </div>
-    <div class="col-4 form-group">
-        <label for="startDate">Start Date</label>
-        <input type="date" id="startDate" name="startDate" @bind-value="startDate" />
-    </div>
-    <div class="col-4 form-group">
-        <label for="endDate">End Date</label>
-        <input type="text" id="endDate" name="endDate" @bind-value="endDate" />
-    </div>
-    <button type="button" class="btn btn-primary">Search</button>
-</div>
 
+    @if(transactions != null)
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Date Sell</th>
+                    <th>Casheir Name</th>
+                    <th>Product Name</th>
+                    <th>Quantity before</th>
+                    <th>Quantity Sold</th>
+                    <th>Quantity After</th>
+                    <th>Price</th>
+                    <th>Sold Amt</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var trans in transactions)
+                {
+                    <tr>
+                        <td>@trans.date.ToString("MM-dd hh:mm")</td>
+                        <td>@trans.CashierName</td>
+                        <td>@trans.ProductName</td>
+                        <td>@(trans.BeforeQuantity + trans.SoldQuantity)</td>
+                        <td>@trans.SoldQuantity</td>
+                        <td>@trans.BeforeQuantity</td>
+                        <td>@trans.price</td>
+                        <td>@(string.Format("{0:c}", trans.SoldQuantity * trans.price))</td>
+                    </tr>
+                }
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="6">&nbsp;</td>
+                    <td>Total :</td>
+                    <td>
+                        <b>
+                            @(string.Format("{0:c}", transactions.Sum(t => t.price)))
+                        </b>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    }
+</div>
 @code {
-    private string cashierName;
+    private string cashierName { set; get; } = string.Empty;
     private DateTime startDate;
     private DateTime endDate;
+
+    private IEnumerable<Transaction> transactions;
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        startDate = DateTime.Today;
+        endDate = DateTime.Today.AddDays(1).Date;
+    }
+    private void LoadTransactions()
+    {
+        transactions = SearchTransactionsUseCase.Execute(cashierName, startDate, endDate);
+        StateHasChanged();
+    }
+    private void PrintReport()
+    {
+        JSRutime.InvokeVoidAsync("print");
+    }
 }

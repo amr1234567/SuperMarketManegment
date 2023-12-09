@@ -9,9 +9,12 @@ namespace Core
 {
     public class Category
     {
+        [Key]
         public  int Id { get; set; }
         [Required(ErrorMessage ="The Name is Required")]
         public string Name { get; set; } = string.Empty;
-        public string Description { get; set; } = string.Empty;
+        public string? Description { get; set; } = string.Empty;
+
+        public List<Product>? products { get; set;}
     }
 }
