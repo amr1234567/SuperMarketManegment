@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UseCases", "UseCases\UseCas
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Plugin.InMemory", "Plugin.InMemory\Plugin.InMemory.csproj", "{309CA505-34C6-416D-844E-DF5125FFF621}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Plugin.DataBase.Sql", "Plugin.DataBase.Sql\Plugin.DataBase.Sql.csproj", "{96BA9A00-9BE6-4CD5-A982-245AC6528677}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{309CA505-34C6-416D-844E-DF5125FFF621}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{309CA505-34C6-416D-844E-DF5125FFF621}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{309CA505-34C6-416D-844E-DF5125FFF621}.Release|Any CPU.Build.0 = Release|Any CPU
+		{96BA9A00-9BE6-4CD5-A982-245AC6528677}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{96BA9A00-9BE6-4CD5-A982-245AC6528677}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{96BA9A00-9BE6-4CD5-A982-245AC6528677}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{96BA9A00-9BE6-4CD5-A982-245AC6528677}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

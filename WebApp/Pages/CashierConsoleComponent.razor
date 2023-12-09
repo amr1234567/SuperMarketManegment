@@ -1,42 +1,58 @@
-﻿@page "/Cashier"
-<div class="row">
-    <div class="col-7">
-        <h3>Cashier's' Console</h3>
-    </div>
-    <div class="col-2">
-        <label for="CashierName">Cashier Name</label>
-    </div>
-    <div class="col-3">
-        <input id="CashierName" type="text" @onblur="productSold" @bind-value="CashierName" class="ms-2 form-control" />
-    </div>
-</div>
-<br />
+﻿@attribute [Authorize(policy: "CashierOnly")]
+@page "/Cashier"
 
-<div class="row">
-    <div class="col-3">
-        <SelectProductForSellingControl 
-            onProductSelect="selectProduct">
-        </SelectProductForSellingControl>
-
-        <SellProductComponent 
-            CashierName="@CashierName"
-            OnProductSold="productSold"
-            SelectedProduct="selectedProduct">
-        </SellProductComponent>
+@if (!string.IsNullOrEmpty(CashierName))
+{
+    
+    <div class="row">
+        <div class="col-7">
+            <h3>Cashier's' Console</h3>
+        </div>
+        <div class="col-2">
+            <label for="CashierName">Cashier Name</label>
+        </div>
+        <div class="col-3">
+            <input id="CashierName" type="text" @onblur="productSold" @bind-value="CashierName" class="ms-2 form-control" />
+        </div>
     </div>
-    <div class="col-9">
-        <TodayTransactionsComponent
-            @ref="TodayTransactions">
-        </TodayTransactionsComponent>
-    </div>
+    <br />
 
-</div>
+    <div class="row">
+        <div class="col-3">
+            <SelectProductForSellingControl 
+                onProductSelect="selectProduct">
+            </SelectProductForSellingControl>
+
+            <SellProductComponent 
+                CashierName="@CashierName"
+                OnProductSold="productSold"
+                SelectedProduct="selectedProduct">
+            </SellProductComponent>
+        </div>
+        <div class="col-9">
+            <TodayTransactionsComponent
+                @ref="TodayTransactions">
+            </TodayTransactionsComponent>
+        </div>
+
+    </div>
+}
 
 
 @code {
     private Product selectedProduct;
     private string CashierName = string.Empty;
     private TodayTransactionsComponent TodayTransactions;
+
+    [CascadingParameter]
+    private Task<AuthenticationState> _authState { get; set; }
+    private AuthenticationState authState { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        authState = await _authState;
+        CashierName = authState.User.Identity.Name;
+    }
     protected override void OnInitialized()
     {
         base.OnInitialized();

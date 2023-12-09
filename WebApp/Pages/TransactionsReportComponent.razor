@@ -1,4 +1,5 @@
 ﻿@page "/TransactionsReport"
+@attribute [Authorize(policy: "CashierOnly")]
 
 @inject ISearchTransactionsUseCase SearchTransactionsUseCase
 @inject IJSRuntime JSRutime

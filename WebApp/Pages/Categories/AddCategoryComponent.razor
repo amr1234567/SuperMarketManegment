@@ -1,4 +1,5 @@
 ﻿@page "/AddCategory"
+@attribute [Authorize(policy: "AdminOnly")]
 @using UseCases.UseCasesInterfaces
 
 @inject IAddCategoryUseCase _CategoryUseCase

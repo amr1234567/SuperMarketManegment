@@ -1,4 +1,5 @@
-﻿@page "/EditProduct/{ProductId}"
+﻿@attribute [Authorize(policy: "AdminOnly")]
+@page "/EditProduct/{ProductId}"
 @using UseCases.UseCasesInterfaces
 
 @inject IViewCategoriesUseCase categories

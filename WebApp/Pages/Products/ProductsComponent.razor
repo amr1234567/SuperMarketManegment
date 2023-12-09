@@ -1,4 +1,5 @@
-﻿@page "/products"
+﻿@attribute [Authorize(policy: "AdminOnly")]
+@page "/products"
 @using UseCases.UseCasesInterfaces
 @inject IViewProductsUseCase _ProductsUseCases
 @inject IGetCategoryByIdUseCase _Category

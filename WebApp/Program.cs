@@ -19,6 +19,7 @@ builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddSingleton<WeatherForecastService>();
 
+
 builder.Services.AddDbContext<MarketContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("MarketDb"));
@@ -30,6 +31,12 @@ builder.Services.AddDbContext<AccountContext>(options =>
 });
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<AccountContext>();
+
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("AdminOnly", policy => policy.RequireClaim("Position", "Admin"));
+    options.AddPolicy("CashierOnly", policy => policy.RequireClaim("Position", "Cashier"));
+});
 
 // DI
 //builder.Services.AddScoped<ICategoryRepositry,CategoryInMemoryRepositry>();
@@ -75,6 +82,10 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+
+app.UseAuthentication();
+app.UseAuthorization();
+
 
 app.MapBlazorHub();
 app.MapFallbackToPage("/_Host");

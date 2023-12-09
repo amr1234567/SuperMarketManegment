@@ -1,0 +1,18 @@
+﻿@inject NavigationManager Navigation
+
+<AuthorizeView>
+    <Authorized>
+        <a href="/Identity/Account/Manage">Hallo, @context.User.Identity?.Name</a>
+        <form action="/Identity/Account/Logout" method="post">
+            <button type="submit" class="btn btn-link"></button>    
+        </form>
+    </Authorized>
+    <NotAuthorized>
+        <a href="/Identity/Account/Register">Register</a>
+        <a href="/Identity/Account/Login">Log In</a>
+    </NotAuthorized>
+</AuthorizeView>
+
+@code {
+
+}
